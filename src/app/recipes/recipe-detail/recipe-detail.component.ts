@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.model';
-
+import { RecipeService } from '../recipe.service';
+import { ShoppingListService } from '../../shopping-list/shopping-list.service';
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
@@ -9,9 +10,13 @@ import { Recipe } from '../recipe.model';
 export class RecipeDetailComponent implements OnInit {
   @Input()recipe: Recipe;
 
-  constructor() { }
+  constructor(private recipeService: RecipeService, private slService: ShoppingListService) { }
 
   ngOnInit(): void {
+  }
+  onAddToShoppingList(){
+  this.recipeService.addIngredientsToShoppingList(this.recipe.ingredients)
+  // this.slService.addIngredients(this.recipe.ingredients)  //another methoid bypassing via service
   }
 
 }
